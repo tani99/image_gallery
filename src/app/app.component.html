@@ -9,16 +9,78 @@
 
 <div class="container">
   <div class="card">
-    <div class="card-header">
-      Image Gallery
-    </div>
+    <div class="card-header">Image Gallery</div>
     <div class="card-body">
       <h5 class="card-title">Select file for upload</h5>
-      <input type="file" (change)="upload($event)" accept=".png,.jpg"/>
+      <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+      <br /><br />
+      <div
+        class="btn-group"
+        role="group"
+        *ngIf="(uploadState | async); let state"
+      >
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="task.pause()"
+          [disabled]="state === 'paused'"
+        >
+          Pause
+        </button>
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="task.cancel()"
+          [disabled]="!(state === 'paused' || state === 'running')"
+        >
+          Cancel
+        </button>
+        <button
+          class="btn-primary"
+          type="button"
+          (click)="task.resume()"
+          [disabled]="state === 'running'"
+        >
+          Resume
+        </button>
+      </div>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-success"
+          role="progressbar"
+          [style.width]="(uploadProgress | async) + '%'"
+          [attr.aria-valuenow]="uploadProgress | async"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+      <br /><br />
+      <div
+        *ngIf="(downloadURL | async); let downloadSrc"
+        class="alert alert-info"
+        role="alert"
+      >
+        File uploaded: uploaded: <a [href]="downloadSrc">{{ downloadSrc }}</a>
+      </div>
+
+      <ons-list-item
+        class="list__item list__item--chevron"
+        tappable
+        *ngFor="let request of (requests | async)"
+        (click)="pushToDetail(request)"
+      >
+        <ons-row>
+          <ons-col width="20%"><img [src]="userProfileImg"/></ons-col>
+          <ons-col style="padding-left:20px;">
+            <p class="name">
+              <i class="fa fa-venus fa-fw" aria hidden="true"></i
+              >{{ request.nickName }}
+            </p>
+          </ons-col>
+        </ons-row>
+      </ons-list-item>
     </div>
   </div>
-
-
 </div>
 <!--<style>-->
 <!--  :host {-->
@@ -278,7 +340,6 @@
 <!--    z-index: -10;-->
 <!--    width: 1920px;-->
 <!--  }-->
-
 
 <!--  /* Responsive Styles */-->
 <!--  @media screen and (max-width: 767px) {-->
@@ -541,7 +602,5 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
 
 <router-outlet></router-outlet>
