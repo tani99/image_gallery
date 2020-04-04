@@ -1,1 +1,28 @@
-<p>image works!</p>
+<div class="card" style="width:25rem">
+  <div class="card-body">
+    <form formGroup="formTemplate">
+      <div class="form-group">
+        <label>Select file to upload</label>
+        <input type="file" class="form-control" formControlName="imageURL" />
+      </div>
+      <div class="form-group">
+        <label>Enter caption for selected image</label>
+        <input
+          class="form-control"
+          formControlName="caption"
+          placeholder="caption"
+        />
+      </div>
+      <div class="form-group">
+        <select formControlName="category" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success float-right" type="submit"></button>
+      </div>
+    </form>
+  </div>
+</div>
