@@ -1,1 +1,29 @@
-<p>image-list works!</p>
+<table *ngIf="imageList">
+  <tr *ngFor="let i of rawIndexArray">
+    <td>
+      <div class="imagebox" *ngIf="i == 0">
+        <a routerLink="/image/upload">
+          <img src="/assets/img/upload-image.gif" class="img-fluid" />
+          <span class="imagebox-desc">Upload new image</span>
+        </a>
+      </div>
+
+      <div class="imagebox" *ngIf="i != 0">
+        <img [src]="imageList[3 * i - 1].imageURL" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i - 1].caption }}</span>
+      </div>
+    </td>
+    <td *ngIf="imageList[3 * i]">
+      <div class="imagebox">
+        <img [src]="imageList[3 * i].imageURL" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i].caption }}</span>
+      </div>
+    </td>
+    <td *ngIf="imageList[3 * i + 1]">
+      <div class="imagebox">
+        <img [src]="imageList[3 * i + 1].imageURL" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i + 1].caption }}</span>
+      </div>
+    </td>
+  </tr>
+</table>
