@@ -1,9 +1,31 @@
 <div class="card" style="width:25rem">
   <div class="card-body">
-    <form formGroup="formTemplate">
+    <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+      <div class="text-center">
+        <img
+          [src]="imgSrc"
+          width="350px"
+          height="250px"
+          (click)="fileUploader.click()"
+        />
+      </div>
+
       <div class="form-group">
         <label>Select file to upload</label>
-        <input type="file" class="form-control" formControlName="imageURL" />
+        <input
+          accept="image/*"
+          type="file"
+          class="form-control"
+          formControlName="imageURL"
+          #fileUploader
+          (change)="showPreview($event)"
+        />
+        <div
+          class="text-danger"
+          *ngIf="isSubmitted && formControls.imageURL.errors?.required"
+        >
+          This field is required
+        </div>
       </div>
       <div class="form-group">
         <label>Enter caption for selected image</label>
@@ -12,6 +34,12 @@
           formControlName="caption"
           placeholder="caption"
         />
+        <div
+          class="text-danger"
+          *ngIf="isSubmitted && formControls.caption.errors?.required"
+        >
+          This field is required
+        </div>
       </div>
       <div class="form-group">
         <select formControlName="category" class="form-control">
@@ -21,7 +49,9 @@
         </select>
       </div>
       <div class="form-group">
-        <button class="btn btn-success float-right" type="submit"></button>
+        <button class="btn btn-success float-right" type="submit">
+          Submit
+        </button>
       </div>
     </form>
   </div>

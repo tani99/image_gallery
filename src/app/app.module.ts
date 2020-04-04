@@ -6,11 +6,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 import { ImagesComponent } from './images/images.component';
 import { ImageComponent } from './images/image/image.component';
 import { ImageListComponent } from './images/image-list/image-list.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,9 +23,10 @@ import { ImageListComponent } from './images/image-list/image-list.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
