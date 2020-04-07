@@ -58,6 +58,7 @@ export class ImageComponent implements OnInit {
   onSubmit(formValue) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
+      // Add time to file path to ensure unique file names.
       var filePath = `images/${this.selectedImage.name
         .split('.')
         .slice(0, -1)
@@ -74,15 +75,16 @@ export class ImageComponent implements OnInit {
               var currentDate = new Date();
 
               var date = currentDate.getDate();
-              var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+              var month = currentDate.getMonth();
               var year = currentDate.getFullYear();
 
               var timestamp = date + '-' + (month + 1) + '-' + year;
 
               formValue['timestamp'] = timestamp;
               this.service.insertImageDetails(formValue);
+
+              // Reset form values once uploading is complete/
               this.resetForm();
-              this.uploadComplete = true;
             });
           })
         )
@@ -107,6 +109,9 @@ export class ImageComponent implements OnInit {
     this.uploadTask = null;
     this.uploadProgress = null;
     this.showImageCropper = false;
+
+    // Uploading is complete
+    this.uploadComplete = true;
   }
 
   // Cropping images

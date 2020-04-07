@@ -5,7 +5,7 @@ import { ImageComponent } from './images/image/image.component';
 import { ImageListComponent } from './images/image-list/image-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'image/upload', pathMatch: 'full' },
+  { path: '', redirectTo: 'image/list', pathMatch: 'full' },
   {
     path: 'image',
     component: ImagesComponent,
