@@ -20,7 +20,7 @@ export class ImageComponent implements OnInit {
   isSubmitted: boolean = false;
   uploadProgress: Observable<number>;
   uploadTask: AngularFireUploadTask;
-
+  uploadComplete: boolean = false;
   // Cropping an image
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -41,6 +41,7 @@ export class ImageComponent implements OnInit {
   }
 
   showPreview(event: any) {
+    this.uploadComplete = false;
     this.imageChangedEvent = event;
     this.showImageCropper = true;
     if (event.target.files && event.target.files[0]) {
@@ -81,6 +82,7 @@ export class ImageComponent implements OnInit {
               formValue['timestamp'] = timestamp;
               this.service.insertImageDetails(formValue);
               this.resetForm();
+              this.uploadComplete = true;
             });
           })
         )
