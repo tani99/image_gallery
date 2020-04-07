@@ -7,23 +7,30 @@ import {
 import { finalize } from 'rxjs/operators';
 import { ImageService } from 'src/app/shared/image.service';
 import { Observable } from 'rxjs/Observable';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html'
 })
 export class ImageComponent implements OnInit {
+  // Set a default image which can be clicked on to open the file selector.
   imgSrc: string = '/assets/img/image_placeholder.png';
   selectedImage: any = null;
   isSubmitted: boolean = false;
   uploadProgress: Observable<number>;
   uploadTask: AngularFireUploadTask;
 
+  // Cropping an image
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  showImageCropper: boolean = false;
+
   formTemplate = new FormGroup({
     caption: new FormControl('', Validators.required),
-    category: new FormControl(''),
     imageURL: new FormControl('', Validators.required)
   });
+
   constructor(
     private storage: AngularFireStorage,
     private service: ImageService
@@ -34,9 +41,11 @@ export class ImageComponent implements OnInit {
   }
 
   showPreview(event: any) {
+    this.imageChangedEvent = event;
+    this.showImageCropper = true;
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e: any) => (this.imgSrc = e.target.result);
+      // reader.onload = (e: any) => (this.imgSrc = e.target.result);
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
     } else {
@@ -48,7 +57,6 @@ export class ImageComponent implements OnInit {
   onSubmit(formValue) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      console.log(this.selectedImage);
       var filePath = `images/${this.selectedImage.name
         .split('.')
         .slice(0, -1)
@@ -61,7 +69,7 @@ export class ImageComponent implements OnInit {
         .pipe(
           finalize(() => {
             fileRef.getDownloadURL().subscribe(url => {
-              formValue['imageURL'] = url;
+              formValue['imageURL'] = this.imgSrc;
               var currentDate = new Date();
 
               var date = currentDate.getDate();
@@ -89,13 +97,28 @@ export class ImageComponent implements OnInit {
     this.formTemplate.reset();
     this.formTemplate.setValue({
       caption: '',
-      category: '1',
       imageURL: ''
     });
-    this.imgSrc = '/assets/img/upload.gif';
+    this.imgSrc = '/assets/img/image_placeholder.png';
     this.isSubmitted = false;
     this.selectedImage = null;
     this.uploadTask = null;
     this.uploadProgress = null;
+    this.showImageCropper = false;
+  }
+
+  // Cropping images
+  imageCropped(event: ImageCroppedEvent) {
+    // Replace the image source to be stored as the cropped image
+    this.imgSrc = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 }

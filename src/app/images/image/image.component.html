@@ -1,79 +1,84 @@
-<div class="card" style="width:25rem">
-  <div class="card-body">
-    <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
-      <div class="text-center">
-        <img
-          [src]="imgSrc"
-          width="350px"
-          height="250px"
-          (click)="fileUploader.click()"
-        />
-      </div>
-
-      <br />
-      <div class="form-group">
-        <label>Select file to upload</label>
-        <input
-          accept="image/*"
-          type="file"
-          class="form-control"
-          formControlName="imageURL"
-          #fileUploader
-          (change)="showPreview($event)"
-        />
-        <div
-          class="text-danger"
-          *ngIf="isSubmitted && formControls.imageURL.errors?.required"
-        >
-          This field is required
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Enter caption for selected image</label>
-        <input
-          class="form-control"
-          formControlName="caption"
-          placeholder="caption"
-        />
-        <div
-          class="text-danger"
-          *ngIf="isSubmitted && formControls.caption.errors?.required"
-        >
-          This field is required
-        </div>
-      </div>
-      <div class="form-group">
-        <select formControlName="category" class="form-control">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <a
-            routerLink="/image/list"
-            class="btn btn-primary btn-block float-right"
-            >Go to Gallery</a
-          >
-        </div>
-        <div class="form-group col-md-6">
-          <button class="btn btn-success btn-block float-right" type="submit">
-            Submit
-          </button>
+<div class="text-center">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+        <div class="text-center">
+          <img
+            [src]="imgSrc"
+            width="350"
+            height="350"
+            (click)="fileUploader.click()"
+          />
         </div>
         <br />
+        <div class="form-group">
+          <label>Select file to upload</label>
+          <input
+            accept="image/*"
+            type="file"
+            class="form-control"
+            formControlName="imageURL"
+            #fileUploader
+            (change)="showPreview($event)"
+          />
+          <image-cropper
+            *ngIf="showImageCropper"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+          <div
+            class="text-danger"
+            *ngIf="isSubmitted && formControls.imageURL.errors?.required"
+          >
+            This field is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Enter caption for selected image</label>
+          <input
+            class="form-control"
+            formControlName="caption"
+            placeholder="caption"
+          />
+          <div
+            class="text-danger"
+            *ngIf="isSubmitted && formControls.caption.errors?.required"
+          >
+            This field is required
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <a
+              routerLink="/image/list"
+              class="btn btn-primary btn-block float-right"
+              >Go to Gallery</a
+            >
+          </div>
+          <div class="form-group col-md-6">
+            <button class="btn btn-success btn-block float-right" type="submit">
+              Submit
+            </button>
+          </div>
+          <br />
+        </div>
+      </form>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-success"
+          role="progressbar"
+          [style.width]="(uploadProgress | async) + '%'"
+          [attr.aria-valuenow]="uploadProgress | async"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
       </div>
-    </form>
-    <div class="progress">
-      <div
-        class="progress-bar progress-bar-striped bg-success"
-        role="progressbar"
-        [style.width]="(uploadProgress | async) + '%'"
-        [attr.aria-valuenow]="uploadProgress | async"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      ></div>
     </div>
   </div>
 </div>
