@@ -7,7 +7,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 There are 2 routes:
+
 http://localhost:4200/image/upload: This takes you to an image uploading screen where you can upload a new image.
+
 http://localhost:4200/image/list: This takes you to a gallery screen where you can view all the images.
 
 ## Code scaffolding
