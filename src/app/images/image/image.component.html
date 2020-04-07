@@ -10,6 +10,7 @@
         />
       </div>
 
+      <br />
       <div class="form-group">
         <label>Select file to upload</label>
         <input
@@ -61,7 +62,18 @@
             Submit
           </button>
         </div>
+        <br />
       </div>
     </form>
+    <div class="progress">
+      <div
+        class="progress-bar progress-bar-striped bg-success"
+        role="progressbar"
+        [style.width]="(uploadProgress | async) + '%'"
+        [attr.aria-valuenow]="uploadProgress | async"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
   </div>
 </div>

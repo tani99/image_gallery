@@ -17,7 +17,7 @@ export class ImageListComponent implements OnInit {
       });
       this.rawIndexArray = Array.from(
         // To set number of rows
-        Array(Math.ceil((this.imageList.length + 1) / 3)).keys()
+        Array(Math.ceil(this.imageList.length + 1 / 3)).keys()
       );
     });
   }

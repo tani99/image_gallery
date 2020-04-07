@@ -1,29 +1,134 @@
-<table *ngIf="imageList">
-  <tr *ngFor="let i of rawIndexArray">
-    <td>
+<div class="container mt-3" *ngIf="imageList">
+  <div class="row" *ngFor="let i of rawIndexArray">
+    <div class="col-lg-4 pad">
       <div class="imagebox" *ngIf="i == 0">
         <a routerLink="/image/upload">
-          <img src="/assets/img/upload-image.gif" class="img-fluid" />
-          <span class="imagebox-desc">Upload new image</span>
+          <div class="hover hover-2 text-white rounded">
+            <img src="/assets/img/upload.gif" class="img-fluid" />
+            <div class="hover-overlay"></div>
+            <div class="hover-2-content">
+              <h5 class="hover-2-title ">
+                <span class="font-weight-light">Upload new image </span>
+              </h5>
+              <p class="hover-2-description text-uppercase mb-0">5/9/2012</p>
+            </div>
+          </div>
+          <!-- <img
+            src="/assets/img/upload.gif"
+            class="img-fluid"
+            width="400"
+            height="400"
+          />
+          <span class="imagebox-desc">Upload new image</span> -->
         </a>
       </div>
 
-      <div class="imagebox" *ngIf="i != 0">
-        <img [src]="imageList[3 * i - 1].imageURL" class="img-fluid" />
-        <span class="imagebox-desc">{{ imageList[3 * i - 1].caption }}</span>
+      <div class="imagebox" *ngIf="imageList[3 * i - 1] && i != 0">
+        <div class="hover hover-2 text-white rounded">
+          <img [src]="imageList[3 * i - 1].imageURL" class="img-fluid" />
+          <div class="hover-overlay"></div>
+          <div class="hover-2-content">
+            <h5 class="hover-2-title ">
+              <span class="font-weight-light">{{
+                imageList[3 * i - 1].caption
+              }}</span>
+            </h5>
+            <p class="hover-2-description text-uppercase mb-0">
+              {{ imageList[3 * i - 1].timestamp }}
+            </p>
+          </div>
+        </div>
+
+        <!-- <div class="hover hover-2 text-white rounded">
+          <img [src]="imageList[3 * i - 1].imageURL" class="img-fluid" />
+          <div class="hover-overlay"></div>
+          <div class="hover-2-content">
+            <h5 class="hover-2-title ">
+              <span class="font-weight-light">Upload new image </span>
+            </h5>
+            <p class="hover-2-description text-uppercase mb-0">5/9/2012</p>
+          </div>
+        </div> -->
+        <!-- <img
+          [src]="imageList[3 * i - 1].imageURL"
+          class="img-fluid"
+          width="400"
+          height="400"
+        />
+        <span class="imagebox-desc"
+          >{{ imageList[3 * i - 1].caption }},
+          {{ imageList[3 * i - 1].timestamp }}</span
+        > -->
       </div>
-    </td>
-    <td *ngIf="imageList[3 * i]">
-      <div class="imagebox">
-        <img [src]="imageList[3 * i].imageURL" class="img-fluid" />
-        <span class="imagebox-desc">{{ imageList[3 * i].caption }}</span>
+    </div>
+    <div class="col-lg-4 pad">
+      <div class="hover hover-2 text-white rounded" *ngIf="imageList[3 * i]">
+        <img
+          [src]="imageList[3 * i].imageURL"
+          class="img-fluid"
+          width="400"
+          height="400"
+        />
+        <div class="hover-overlay"></div>
+        <div class="hover-2-content">
+          <h5 class="hover-2-title ">
+            <span class="font-weight-light">{{
+              imageList[3 * i].caption
+            }}</span>
+          </h5>
+          <p class="hover-2-description text-uppercase mb-0">
+            {{ imageList[3 * i].timestamp }}
+          </p>
+        </div>
       </div>
-    </td>
-    <td *ngIf="imageList[3 * i + 1]">
-      <div class="imagebox">
-        <img [src]="imageList[3 * i + 1].imageURL" class="img-fluid" />
-        <span class="imagebox-desc">{{ imageList[3 * i + 1].caption }}</span>
+      <!-- <div class="imagebox" *ngIf="imageList[3 * i]">
+        <img
+          [src]="imageList[3 * i].imageURL"
+          class="img-fluid"
+          width="400"
+          height="400"
+        />
+        <span class="imagebox-desc"
+          >{{ imageList[3 * i].caption }},
+          {{ imageList[3 * i].timestamp }}</span
+        >
+      </div> -->
+    </div>
+    <div class="col-lg-4 pad">
+      <div
+        class="hover hover-2 text-white rounded"
+        *ngIf="imageList[3 * i + 1]"
+      >
+        <img
+          [src]="imageList[3 * i + 1].imageURL"
+          class="img-fluid"
+          width="400"
+          height="400"
+        />
+        <div class="hover-overlay"></div>
+        <div class="hover-2-content">
+          <h5 class="hover-2-title ">
+            <span class="font-weight-light">{{
+              imageList[3 * i + 1].caption
+            }}</span>
+          </h5>
+          <p class="hover-2-description text-uppercase mb-0">
+            {{ imageList[3 * i + 1].timestamp }}
+          </p>
+        </div>
       </div>
-    </td>
-  </tr>
-</table>
+      <!-- <div class="imagebox" *ngIf="imageList[3 * i]">
+        <img
+          [src]="imageList[3 * i + 1].imageURL"
+          class="img-fluid"
+          width="400"
+          height="400"
+        />
+        <span class="imagebox-desc"
+          >{{ imageList[3 * i + 1].caption }},
+          {{ imageList[3 * i + 1].timestamp }}</span
+        >
+      </div> -->
+    </div>
+  </div>
+</div>
