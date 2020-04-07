@@ -5,7 +5,7 @@ import {
   AngularFireUploadTask
 } from 'angularfire2/storage';
 import { finalize } from 'rxjs/operators';
-import { ImageService } from 'src/app/shared/image.service';
+import { ImageService } from 'src/app/Services/image.service';
 import { Observable } from 'rxjs/Observable';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 

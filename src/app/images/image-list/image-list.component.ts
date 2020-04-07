@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from 'src/app/shared/image.service';
+import { ImageService } from 'src/app/Services/image.service';
 
 @Component({
   selector: 'app-image-list',
@@ -8,6 +8,7 @@ import { ImageService } from 'src/app/shared/image.service';
 export class ImageListComponent implements OnInit {
   imageList: any[];
   rawIndexArray: any[];
+  showSpinner: boolean = true;
   constructor(private service: ImageService) {}
 
   ngOnInit(): void {
@@ -19,6 +20,7 @@ export class ImageListComponent implements OnInit {
         // To set number of rows
         Array(Math.ceil(this.imageList.length + 1 / 3)).keys()
       );
+      this.showSpinner = false;
     });
   }
 }

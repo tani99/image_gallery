@@ -12,12 +12,17 @@ import { ImageComponent } from './images/image/image.component';
 import { ImageListComponent } from './images/image-list/image-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
     ImagesComponent,
     ImageComponent,
-    ImageListComponent
+    ImageListComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
